@@ -86,6 +86,9 @@ let app = express();
 app.get("/helloto", (req, res) => {
   res.send("hello");
 });
+app.get("/hi", (req, res) => {
+  res.send("hi")
+})
 
 //req.query
 app.get("/shout", (req, res) => {
