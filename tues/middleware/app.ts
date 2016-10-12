@@ -8,7 +8,7 @@ import * as ejs from 'ejs';
 
 import routes from './routes/index';
 import users from './routes/users';
-//import actors from './routes/actors';
+import actors from './routes/actors';
 // added
 import products from './routes/products';
 import things from './routes/things';
@@ -37,7 +37,7 @@ app.use('/users', users);
 
 //app.use('/products', products);
 
-//app.use('/actors', actors);
+app.use('/actors', actors);
 // app.use, defines middleware
 
 app.use('/things', things);
