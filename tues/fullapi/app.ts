@@ -8,8 +8,15 @@ import * as ejs from 'ejs';
 
 import routes from './routes/index';
 import users from './routes/users';
+import actors from './routes/actors';
+
+/////////////////////////////////////////
+
 
 let app = express();
+
+// render spaces
+app.set("json spaces", 10);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,6 +44,8 @@ app.use('/api', require('./api/movies'));
 app.use('/api', require('./api/genres'));
 app.use('/api', require('./api/guestbook'));
 app.use('/api', require('./api/deepThought'));
+//////////////////////////
+app.use('/actors', actors);
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {

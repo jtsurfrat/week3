@@ -1,19 +1,39 @@
 namespace fullapi.Services {
 
-    export class MovieService {
-        private MovieResource;
+    export class ActorService {
+      private ActorResource;
 
-        public listMovies() {
-            return this.MovieResource.query();
-        }
+      public listActors() {
+        return this.ActorResource.query();
+      }
 
-        constructor($resource: ng.resource.IResourceService) {
-            this.MovieResource = $resource('/api/movies');
-        }
+      public saveActor(newActor){
+        return this.ActorResource.save(newActor).$promise;
+      }
+
+      constructor($resource: ng.resource.IResourceService){
+        this.ActorResource = $resource('/actors');
+      }
+
     }
-    angular.module('fullapi').service('movieService', MovieService);
-    export class MyService {
+    angular.module('fullapi').service("ActorService", ActorService);
 
-    }
-    angular.module('fullapi').service('myService', MyService);
+    // export class MovieService {
+    //     private MovieResource;
+    //
+    //     public listMovies() {
+    //         return this.MovieResource.query();
+    //     }
+    //
+    //     constructor($resource: ng.resource.IResourceService) {
+    //         this.MovieResource = $resource('/api/movies');
+    //     }
+    // }
+    // angular.module('fullapi').service('movieService', MovieService);
+    // export class MyService {
+
+    // }
+    // angular.module('fullapi').service('myService', MyService);
+
+
     }
