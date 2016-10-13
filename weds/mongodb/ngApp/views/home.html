@@ -1,0 +1,29 @@
+<h2>Products</h2>
+<div class="">
+  <form ng-submit="controller.save()">
+    <div>
+      <label>Name:</label>
+      <input ng-model="controller.newProduct.name">
+    </div>
+    <div>
+      <label>Price:</label>
+      <input ng-model="controller.newProduct.price">
+    </div>
+    <button>create products</button>
+  </form>
+</div>
+<p>
+    <!-- {{controller.message}} -->
+    {{controller.products}}
+</p>
+
+<div class="">
+  <ul>
+    <li ng-repeat="product in controller.products">
+      {{product.name}} : {{product.price | currency}}
+      <a href="/edit/{{product._id}}">edit</a>
+      <a href="#" ng-click="controller.remove(product._id)">delete</a>
+    </li>
+  </ul>
+
+</div>
