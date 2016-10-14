@@ -1,0 +1,28 @@
+<ul class="bg-danger">
+  <li ng-repeat="error in controller.validationErrors">
+      {{error.message}}
+  </li>
+</ul>
+
+
+<form ng-submit="controller.save()">
+  <div class="form-group">
+    <label>Name:</label>
+    <input ng-model="controller.animal.name" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Kind:</label>
+    <input ng-model="controller.animal.kind" class="form-control" />
+  </div>
+  <button class="btn btn-primary">Create Animal</button>
+</form>
+
+
+
+<ul>
+  <li ng-repeat="animal in controller.animals">
+    {{animal.name}}, {{animal.kind}}
+    <a href="/edit/{{animal._id}}">edit</a>
+    <a href="#" ng-click="controller.remove(animal._id)">delete</a>
+  </li>
+</ul>
