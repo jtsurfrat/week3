@@ -9,10 +9,10 @@ import * as ejs from 'ejs';
 import routes from './routes/index';
 import users from './routes/users';
 
+/// imports ////////////////////
+
 
 let app = express();
-
-// connetion db
 
 
 // view engine setup
@@ -32,25 +32,54 @@ app.use('/api', express.static(path.join(__dirname, 'api')));
 
 app.use('/', routes);
 app.use('/users', users);
-/////////////////////////////////// imports mongoose, shopping cart mode and db connectios
-import * as mongoose from 'mongoose';
-/// importing shopping cart
-import ShoppingCart from './model/shoppingCartModel';
 
-let connectionString = "mongodb://jtsurfrat:porter566@ds057816.mlab.com:57816/shoppingcart";
+import * as mongoose from 'mongoose';
+import Movie from './models/moviesModel';
+import Category from './models/categoryModel';
+let connectionString = "mongodb://jtsurfrat:porter566@ds051615.mlab.com:51615/movieapp";
 
 mongoose.connect(connectionString).then(() => {
+  // add sample data
   mongoose.connection.db.dropDatabase(() => {
-    let shoppingCart = new ShoppingCart();
-    shoppingCart.username = "Steven";
-    shoppingCart.items.push(
-      {productName: 'Milk', price: 2.33},
-      {productName: 'Cheese', price: 1.77},
-      {productName: 'Oranges', price: 3.33}
-    );
-    shoppingCart.save();
+    // create action movies
+    Movie.create({
+      title: 'Die Hard 2',
+      dateReleased: new Date('7/15/1990'),
+      rating:'PG'
+    },
+    {
+      title: 'Broken Arrow',
+      dateReleased: new Date('2/9/1996'),
+      rating:'R'
+    }).then((movie1, movie2) => {
+      let category1 = new Category();
+      category1.name = 'action';
+      category1.movies.push(movie1, movie2)
+      category1.save();
+    }).catch((err) => {
+      console.error(`failed to seed movie: ${err.message}`)
+    })
   })
+  Movie.create({
+      title: 'The Ring',
+      dateReleased: new Date('7/15/1990'),
+      rating: 'R'
+  },
+ {
+     title: 'Blair Witch Project',
+     dateReleased: new Date('2/9/1996'),
+     rating:'R'
+ }).then((movie1, movie2) => {
+    let category1 = new Category();
+    category1.name = 'horror';
+    category1.movies.push(movie1, movie2);
+    category1.save();
+ }).catch((err) => {
+   console.error('failed to seed movies: ' + err.message);
+ })
 });
+
+
 
 
 // redirect 404 to home for the sake of AngularJS client-side routes
